@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Function to check if a number is a palindrome
+is_palindrome() {
+  local num="$1"
+  local reversed=0
+  local original="$num"
+
+  while [ "$num" -gt 0 ]; do
+    local digit=$((num % 10))
+    reversed=$((reversed * 10 + digit))
+    num=$((num / 10))
+  done
+
+  if [ "$original" -eq "$reversed" ]; then
+    echo "Yes, $original is a palindrome."
+  else
+    echo "No, $original is not a palindrome."
+  fi
+}
+
+# Function to check if a number is prime
+is_prime() {
+  local num="$1"
+  if [ "$num" -le 1 ]; then
+    echo "No, $num is not a prime number."
+    return
+  fi
+
+  for ((i = 2; i * i <= num; i++)); do
+    if [ $((num % i)) -eq 0 ]; then
+      echo "No, $num is not a prime number."
+      return
+    fi
+  done
+
+  echo "Yes, $num is a prime number."
+}
+
+# Function to generate the Fibonacci series up to a given number of terms
+generate_fibonacci() {
+  local terms="$1"
+  local a=0
+  local b=1
+
+  echo "Fibonacci series up to $terms terms:"
+  for ((i = 0; i < terms; i++)); do
+    echo -n "$a "
+    local next=$((a + b))
+    a=$b
+    b=$next
+  done
+  echo
+}
+
+# Main script
+echo "Number Handling Functions in Shell Script"
+
+# Example number for palindrome and prime check
+number=121
+
+# Check if the number is a palindrome
+is_palindrome "$number"
+
+# Check if the number is prime
+is_prime "$number"
+
+# Generate Fibonacci series up to n terms
+n=10
+generate_fibonacci "$n"
